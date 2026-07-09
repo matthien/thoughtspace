@@ -98,7 +98,7 @@ A working React prototype of the mat exists (mat-peel-prototype.jsx) and its car
 
 1. ~~Letterboxd username~~ — resolved: `matttheinn`.
 2. ~~Supabase project credentials~~ — resolved: project created, keys live in `.env.local` (gitignored, not duplicated here).
-3. Admin password value — still a placeholder (`changeme`) in `.env.local`. Needs a real value before admin mode ships.
+3. Admin password value — `ADMIN_PASSWORD` in `.env.local` (gitignored, never written into this file or the repo). Started as an obvious placeholder; must be set to a real value before the site deploys.
 4. ~~Whether sync updates existing rows or only inserts~~ — resolved: update-on-match (brief's default).
 5. ~~Poster art source~~ — resolved: the RSS embeds 600x900 posters, comfortably sharp at the 320px detail size. TMDB remains the upgrade path if director info is ever wanted (the feed has `tmdb:movieId` per entry, so it's an easy join later).
 6. Unfilled-star color and the "back to canvas"/prev-next button icon styling were inferred from adjacent Figma components, not pulled from an exact spec — flag if they look off.
