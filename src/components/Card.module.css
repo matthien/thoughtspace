@@ -1,0 +1,103 @@
+.wrapper {
+  position: absolute;
+  transition: opacity 220ms ease;
+}
+
+/* The hovered card (and its details popover) must float above any
+   overlapping neighbors, which otherwise stack by DOM order. */
+.wrapper:hover {
+  z-index: 10;
+}
+
+.tilt {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  transform: rotate(var(--rotation, 0deg));
+}
+
+.poster {
+  position: relative;
+  width: 140px;
+  height: 210px;
+  border: 0.5px solid rgba(117, 117, 117, 0.25);
+  border-radius: 2px 2px 0 0;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.badge {
+  position: absolute;
+  left: 117px;
+  top: -14px;
+  background: #fff;
+  color: #000;
+  font-size: 12px;
+  letter-spacing: -0.24px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: transform 180ms ease;
+}
+
+.tilt:hover .poster {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+}
+
+.tilt:hover .badge {
+  transform: translateY(-4px) scale(1.03);
+}
+
+/* Non-clickable cards (the selected one in the detail view, or any card
+   mid-transition) shouldn't advertise or react to hover. */
+.tilt.noHover .poster {
+  cursor: default;
+}
+
+.tilt.noHover:hover .poster {
+  transform: none;
+  box-shadow: none;
+}
+
+.tilt.noHover:hover .badge {
+  transform: none;
+}
+
+.hoverDetails {
+  position: absolute;
+  left: 152px;
+  top: 75px;
+  width: 168px;
+  padding: 4px;
+  /* Figma specs rgba(155,155,155,0.25), but over real poster art that
+     drowns; a near-opaque dark panel keeps the text readable anywhere. */
+  background: rgba(43, 43, 46, 0.95);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  letter-spacing: -0.24px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.hoverDetails.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.hoverTitle {
+  color: #fff;
+}
+
+.hoverDirector {
+  color: #a5a5a5;
+}

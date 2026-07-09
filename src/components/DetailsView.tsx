@@ -1,0 +1,89 @@
+"use client";
+
+import { useEffect } from "react";
+import type { MediaEntry } from "@/lib/types";
+import { getDetailLayout } from "@/lib/detailLayout";
+import StarRating from "./StarRating";
+import ArrowIcon from "./ArrowIcon";
+import styles from "./DetailsView.module.css";
+
+export default function DetailsView({
+  entry,
+  opacity,
+  viewportW,
+  viewportH,
+  onBack,
+  onLeft,
+  onRight,
+  hasLeft,
+  hasRight,
+}: {
+  entry: MediaEntry;
+  /** 0 (hidden, mid-zoom) to 1 (fully settled) — text fades/slides in near the end of the camera move. */
+  opacity: number;
+  viewportW: number;
+  viewportH: number;
+  onBack: () => void;
+  /** Arrows fly to the spatially nearest card in that direction on the mat. */
+  onLeft: () => void;
+  onRight: () => void;
+  hasLeft: boolean;
+  hasRight: boolean;
+}) {
+  useEffect(() => {
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") onBack();
+    }
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [onBack]);
+
+  const { textLeft, textTop, textWidth, navTop, navRight } = getDetailLayout(
+    viewportW,
+    viewportH
+  );
+  const slide = (1 - opacity) * 12;
+
+  return (
+    <>
+      <div
+        className={styles.text}
+        style={{
+          left: textLeft,
+          top: textTop,
+          width: textWidth,
+          opacity,
+          transform: `translateX(${slide}px)`,
+        }}
+      >
+        <div className={styles.heading}>
+          <div className={styles.titleBlock}>
+            <div className={styles.title}>{entry.title}</div>
+            {entry.director && (
+              <div className={styles.director}>Directed by {entry.director}</div>
+            )}
+          </div>
+          <StarRating rating={entry.rating ?? 0} />
+        </div>
+
+        {entry.review_text && <div className={styles.review}>{entry.review_text}</div>}
+      </div>
+
+      <div
+        className={styles.navRow}
+        style={{ top: navTop, right: navRight, opacity }}
+      >
+        <button className={styles.iconButton} onClick={onLeft} disabled={!hasLeft}>
+          <ArrowIcon direction="left" />
+        </button>
+        <button className={styles.iconButton} onClick={onRight} disabled={!hasRight}>
+          <ArrowIcon direction="right" />
+        </button>
+      </div>
+
+      <button className={styles.backButton} onClick={onBack} style={{ opacity }}>
+        back to canvas
+      </button>
+    </>
+  );
+}

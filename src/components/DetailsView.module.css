@@ -1,0 +1,103 @@
+.text {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  pointer-events: none;
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+
+.heading {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.titleBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: -0.28px;
+}
+
+.director {
+  font-size: 12px;
+  color: #a5a5a5;
+  letter-spacing: -0.24px;
+}
+
+.review {
+  font-size: 14px;
+  color: #ffffff;
+  letter-spacing: -0.28px;
+  white-space: pre-wrap;
+  max-height: 260px;
+  overflow-y: auto;
+  pointer-events: auto;
+}
+
+.navRow {
+  position: fixed;
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  transition: opacity 200ms ease;
+}
+
+.iconButton {
+  background: #2d2d2d;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 2px rgba(0, 0, 0, 0.25);
+  transition: background 120ms ease, opacity 120ms ease;
+  pointer-events: auto;
+}
+
+.iconButton:hover {
+  background: #4d4d4d;
+}
+
+.iconButton:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.iconButton:disabled:hover {
+  background: #2d2d2d;
+}
+
+.backButton {
+  position: fixed;
+  left: 50%;
+  bottom: 96px;
+  transform: translateX(-50%);
+  z-index: 21;
+  background: #2d2d2d;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-family: inherit;
+  font-size: 12px;
+  letter-spacing: -0.24px;
+  cursor: pointer;
+  box-shadow: 0 4px 2px rgba(0, 0, 0, 0.25);
+  transition: background 120ms ease;
+}
+
+.backButton:hover {
+  background: #4d4d4d;
+}
