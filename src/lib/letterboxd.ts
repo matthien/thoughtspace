@@ -21,7 +21,8 @@ function parseDescription(html: string): { cover: string | null; review: string 
   const imgMatch = html.match(/<img[^>]*src="([^"]+)"/);
   const cover = imgMatch ? imgMatch[1] : null;
 
-  const paragraphs = [...html.matchAll(/<p>(.*?)<\/p>/gs)]
+  // [\s\S] instead of the dotAll `s` flag: the build target predates ES2018.
+  const paragraphs = [...html.matchAll(/<p>([\s\S]*?)<\/p>/g)]
     .map((m) => m[1].replace(/<[^>]+>/g, "").trim())
     .filter((p) => p.length > 0)
     .filter((p) => !/^<img/.test(p) && !imgMatch?.[0].includes(p))
